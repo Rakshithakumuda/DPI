@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-title">ADMIN LOGIN</div>
+            <form id="adminLoginForm" method="POST" action="auth.php">
+                <input type="hidden" name="action" value="admin_login">
+                
+                <div class="form-group">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">LOGIN</button>
+            </form>
+            
+            <div class="register-link">
+                <p><strong>New User</strong></p>
+                <a href="admin_register.html">Click here for Register</a>
+            </div>
+            
+            <div class="forgot-password">
+                <a href="#">Forgot password</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('auth.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'admin_dashboard.php';
+                } else {
+                    alert(data.message || 'Login failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during login');
+            });
+        });
+    </script>
+</body>
+</html>

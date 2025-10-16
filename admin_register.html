@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-title">ADMIN REGISTER</div>
+            <form id="adminRegisterForm" method="POST" action="auth.php">
+                <input type="hidden" name="action" value="admin_register">
+                
+                <div class="form-group">
+                    <label for="email">EMAIL</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">NEW PASSWORD</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">REENTER PASSWORD</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                
+                <button type="submit" class="submit-btn">REGISTER</button>
+            </form>
+            
+            <div class="register-link">
+                <a href="admin_login.html">Already have an account? Login here</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('adminRegisterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            const formData = new FormData(this);
+            
+            fetch('auth.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Registration successful! You can now login.');
+                    window.location.href = 'admin_login.html';
+                } else {
+                    alert(data.message || 'Registration failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred during registration');
+            });
+        });
+    </script>
+</body>
+</html>
