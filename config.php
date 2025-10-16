@@ -7,7 +7,7 @@ return [
         'host' => 'localhost',
         'dbname' => 'login_system',
         'username' => 'phpuser',
-        'password' => 'Kummuda@9945', // Change this to your actual PostgreSQL password
+        'password' => '..', // Change this to your actual PostgreSQL password
         'port' => '5432'
     ],
     

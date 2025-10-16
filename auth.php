@@ -5,7 +5,7 @@ session_start();
 $host = 'localhost';
 $dbname = 'login_system';
 $username = 'phpuser';
-$password = 'Kummuda@9945'; // Change this to your PostgreSQL password
+$password = '...'; // Change this to your PostgreSQL password
 
 try {
     $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
